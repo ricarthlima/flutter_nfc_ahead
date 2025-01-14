@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_banco_douro/ui/styles/colors.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 class NfcScreen extends StatefulWidget {
   const NfcScreen({super.key});
@@ -85,8 +86,17 @@ class _NfcScreenState extends State<NfcScreen> {
   onNextButtonClicked() {
     switch (_currentSubScreen) {
       case _NfcSubScreens.welcome:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        verifyNfcAvailability().then(
+          (isAvailable) {
+            if (isAvailable) {
+              setState(() {
+                _currentSubScreen = _NfcSubScreens.readCard;
+              });
+            } else {
+              _currentSubScreen = _NfcSubScreens.notValid;
+            }
+          },
+        );
       case _NfcSubScreens.notValid:
         Navigator.pushReplacementNamed(context, "home");
         break;
@@ -99,6 +109,8 @@ class _NfcScreenState extends State<NfcScreen> {
         Navigator.pushReplacementNamed(context, "home");
         break;
     }
+
+    setState(() {});
   }
 
   Widget _buildCurrentScreen() {
@@ -106,15 +118,16 @@ class _NfcScreenState extends State<NfcScreen> {
       case _NfcSubScreens.welcome:
         return const _NfcWelcomeScreen();
       case _NfcSubScreens.notValid:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return const _NfcNotValidScreen();
       case _NfcSubScreens.readCard:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return const _NfcReadScreen();
       case _NfcSubScreens.finished:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return const _NfcFinishScreen();
     }
+  }
+
+  Future<bool> verifyNfcAvailability() async {
+    return NfcManager.instance.isAvailable();
   }
 }
 
@@ -157,6 +170,39 @@ class _NfcWelcomeScreen extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ],
+    );
+  }
+}
+
+class _NfcNotValidScreen extends StatelessWidget {
+  const _NfcNotValidScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("NFC não disponível"),
+    );
+  }
+}
+
+class _NfcReadScreen extends StatelessWidget {
+  const _NfcReadScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Ler cartão"),
+    );
+  }
+}
+
+class _NfcFinishScreen extends StatelessWidget {
+  const _NfcFinishScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Finalizar"),
     );
   }
 }
