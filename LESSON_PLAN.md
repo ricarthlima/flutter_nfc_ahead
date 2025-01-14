@@ -1,16 +1,14 @@
-Aula 01 - Vídeo 01 - Parte 07
+Aula 01 - Vídeo 01 - Parte 08
 
 **Problema:**
-Precisamos saber se vamos mandar a pessoa usuária para tela `NotValid` ou `Read` dependendo se o dispositivo dela é capaz ou não de ler NFC.
-
-E é uma boa oportunidade de pelo menos rascunharmos essas outras telas além da welcome!
+Agora que já chegamos na tela de ler o cartão, chegou a hora de fazer ela ficar funcional antes de, de fato, ler o cartão;
 
 **Solução**
-Para isso, vamos criar um método que usa o NfcManager para fazer essa verificação. E também vamos criar versões simples da próxima tela apenas para poder testar.
-
+Para isso vamos criar um design agradável e bloquear o botão de continuar até que um cartão seja lido no futuro.
 
 **Prática**
-- Criar função `verifyNfcAvailability()`;
-- Verificar na `welcome` do `nextButton`;
-- Boa oportunidade para criar `stl` dos outros casos provisoriamente e configurar em `_buildCurrentScreen`;
-- Testar, no emulador vai mandar para `NotValid` e no dispositivo físico vai para `ReadCard` e isso é lindo.
+- Adicionar imagem do NFC;
+- Adicionar imagem na tela de `ReadCard`;
+- Compor tela de `ReadCard`;
+- Criar lógica na tela principal para bloquear o botão de continuar;
+- Sempre que voltar, libera o botão de continuar;

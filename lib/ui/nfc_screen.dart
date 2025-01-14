@@ -11,6 +11,7 @@ class NfcScreen extends StatefulWidget {
 
 class _NfcScreenState extends State<NfcScreen> {
   _NfcSubScreens _currentSubScreen = _NfcSubScreens.welcome;
+  bool isReadingNfc = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,15 @@ class _NfcScreenState extends State<NfcScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      onNextButtonClicked();
-                    },
-                    style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(AppColor.orange),
+                    onPressed: (isReadingNfc)
+                        ? null
+                        : () {
+                            onNextButtonClicked();
+                          },
+                    style: ButtonStyle(
+                      backgroundColor: (isReadingNfc)
+                          ? const WidgetStatePropertyAll(Colors.grey)
+                          : const WidgetStatePropertyAll(AppColor.orange),
                     ),
                     child: const Text(
                       "Continuar",
@@ -69,6 +74,7 @@ class _NfcScreenState extends State<NfcScreen> {
       case _NfcSubScreens.readCard:
       case _NfcSubScreens.finished:
         _currentSubScreen = _NfcSubScreens.welcome;
+        isReadingNfc = false;
         break;
     }
 
@@ -81,6 +87,7 @@ class _NfcScreenState extends State<NfcScreen> {
         verifyNfcAvailability().then(
           (isAvailable) {
             if (isAvailable) {
+              isReadingNfc = true;
               _currentSubScreen = _NfcSubScreens.readCard;
             } else {
               _currentSubScreen = _NfcSubScreens.notValid;
@@ -173,13 +180,29 @@ class _NfcNotValidScreen extends StatelessWidget {
   }
 }
 
-class _NfcReadScreen extends StatelessWidget {
+class _NfcReadScreen extends StatefulWidget {
   const _NfcReadScreen();
 
   @override
+  State<_NfcReadScreen> createState() => _NfcReadScreenState();
+}
+
+class _NfcReadScreenState extends State<_NfcReadScreen> {
+  @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Ler cartão"),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 16,
+        children: [
+          Image.asset(
+            "assets/images/pagamento-nfc.png",
+            height: 128,
+          ),
+          const Text("Aproxime seu douradinho!"),
+        ],
+      ),
     );
   }
 }
