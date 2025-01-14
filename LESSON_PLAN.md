@@ -1,12 +1,12 @@
-Aula 01 - Vídeo 01 - Parte 02
+Aula 01 - Vídeo 01 - Parte 03
 
 **Problema:**
-Precisamos guardar informações localmente pra fazer a lógica de autenticação via NFC
+Agora precisamos de uma tela para fazer o cadastro da autenticação via NFC.
 
 **Solução**
-Vamos usar o SharedPreferences para isso, instalando-o e fazendo configurações mínimas como definir um arquivo de constante para as chaves e criando um gerenciador de dados locais.
+Para isso, o primeiro passo é criar uma nova tela e chama-la depois de `LoginScreen` caso aquele dado `isFirstTime` seja verdadeiro.
 
 **Prática**
-- Instalar o `shared_preferences`
-- Criar `data/prefs_keys.dart`
-- Criar `data/local_data_manager.dart`
+- Criar `ui/nfc_screen.dart` com um `stf`
+- Configurar rota do `nfc` em `main`
+- Fazer com que `LoginScreen` mande para `HomeScreen` ou `NfcScreen` a depender do resultado da consulta de `LOcalDataManager.isFirstTime()`

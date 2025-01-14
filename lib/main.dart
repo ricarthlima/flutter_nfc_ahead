@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_banco_douro/ui/home_screen.dart';
 import 'package:flutter_banco_douro/ui/login_screen.dart';
+import 'package:flutter_banco_douro/ui/nfc_screen.dart';
 
 void main() {
   runApp(const BancoDouroApp());
@@ -14,7 +15,8 @@ class BancoDouroApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         "login": (context) => const LoginScreen(),
-        "home": (context) => HomeScreen(),
+        "home": (context) => const HomeScreen(),
+        "nfc": (context) => const NfcScreen(),
       },
       initialRoute: "login",
     );
