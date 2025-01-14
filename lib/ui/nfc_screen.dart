@@ -66,21 +66,13 @@ class _NfcScreenState extends State<NfcScreen> {
         Navigator.pushReplacementNamed(context, "login");
         break;
       case _NfcSubScreens.notValid:
-        setState(() {
-          _currentSubScreen = _NfcSubScreens.welcome;
-        });
-        break;
       case _NfcSubScreens.readCard:
-        setState(() {
-          _currentSubScreen = _NfcSubScreens.welcome;
-        });
-        break;
       case _NfcSubScreens.finished:
-        setState(() {
-          _currentSubScreen = _NfcSubScreens.welcome;
-        });
+        _currentSubScreen = _NfcSubScreens.welcome;
         break;
     }
+
+    setState(() {});
   }
 
   onNextButtonClicked() {
@@ -89,9 +81,7 @@ class _NfcScreenState extends State<NfcScreen> {
         verifyNfcAvailability().then(
           (isAvailable) {
             if (isAvailable) {
-              setState(() {
-                _currentSubScreen = _NfcSubScreens.readCard;
-              });
+              _currentSubScreen = _NfcSubScreens.readCard;
             } else {
               _currentSubScreen = _NfcSubScreens.notValid;
             }
@@ -101,9 +91,7 @@ class _NfcScreenState extends State<NfcScreen> {
         Navigator.pushReplacementNamed(context, "home");
         break;
       case _NfcSubScreens.readCard:
-        setState(() {
-          _currentSubScreen = _NfcSubScreens.finished;
-        });
+        _currentSubScreen = _NfcSubScreens.finished;
         break;
       case _NfcSubScreens.finished:
         Navigator.pushReplacementNamed(context, "home");
