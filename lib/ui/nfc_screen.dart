@@ -9,6 +9,8 @@ class NfcScreen extends StatefulWidget {
 }
 
 class _NfcScreenState extends State<NfcScreen> {
+  _NfcSubScreens _currentSubScreen = _NfcSubScreens.welcome;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,34 +18,7 @@ class _NfcScreenState extends State<NfcScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Stack(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 16,
-              children: [
-                Image.asset(
-                  "assets/images/credit_card.png",
-                  width: 256,
-                ),
-                const Text(
-                  "Mais segurança!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text(
-                  "Para segurança, vamos configurar uma segunda etapa de autenticação!",
-                  textAlign: TextAlign.center,
-                ),
-                const Text(
-                  "Tenha em mãos seu cartão do Banco D'Ouro.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+            _buildCurrentScreen(),
             Align(
               alignment: Alignment.bottomCenter,
               child: Row(
@@ -84,7 +59,104 @@ class _NfcScreenState extends State<NfcScreen> {
     );
   }
 
-  onBackButtonClicked() {}
+  onBackButtonClicked() {
+    switch (_currentSubScreen) {
+      case _NfcSubScreens.welcome:
+        Navigator.pushReplacementNamed(context, "login");
+        break;
+      case _NfcSubScreens.notValid:
+        setState(() {
+          _currentSubScreen = _NfcSubScreens.welcome;
+        });
+        break;
+      case _NfcSubScreens.readCard:
+        setState(() {
+          _currentSubScreen = _NfcSubScreens.welcome;
+        });
+        break;
+      case _NfcSubScreens.finished:
+        setState(() {
+          _currentSubScreen = _NfcSubScreens.welcome;
+        });
+        break;
+    }
+  }
 
-  onNextButtonClicked() {}
+  onNextButtonClicked() {
+    switch (_currentSubScreen) {
+      case _NfcSubScreens.welcome:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case _NfcSubScreens.notValid:
+        Navigator.pushReplacementNamed(context, "home");
+        break;
+      case _NfcSubScreens.readCard:
+        setState(() {
+          _currentSubScreen = _NfcSubScreens.finished;
+        });
+        break;
+      case _NfcSubScreens.finished:
+        Navigator.pushReplacementNamed(context, "home");
+        break;
+    }
+  }
+
+  Widget _buildCurrentScreen() {
+    switch (_currentSubScreen) {
+      case _NfcSubScreens.welcome:
+        return const _NfcWelcomeScreen();
+      case _NfcSubScreens.notValid:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case _NfcSubScreens.readCard:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case _NfcSubScreens.finished:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
+  }
+}
+
+enum _NfcSubScreens {
+  welcome,
+  notValid,
+  readCard,
+  finished,
+}
+
+class _NfcWelcomeScreen extends StatelessWidget {
+  const _NfcWelcomeScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: 16,
+      children: [
+        Image.asset(
+          "assets/images/credit_card.png",
+          width: 256,
+        ),
+        const Text(
+          "Mais segurança!",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Text(
+          "Para segurança, vamos configurar uma segunda etapa de autenticação!",
+          textAlign: TextAlign.center,
+        ),
+        const Text(
+          "Tenha em mãos seu cartão do Banco D'Ouro.",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
 }

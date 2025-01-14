@@ -1,22 +1,20 @@
-Aula 01 - Vídeo 01 - Parte 04
+Aula 01 - Vídeo 01 - Parte 05
 
-Atenção!
-Essa é uma parte longa e que em praticamente nada agrega para o entendimento de NFC.
-Talvez possamos cogitar chegar com esse código pronto.
+**Atenção!**
+Essa parte sofre do mesmo caso da anterior, uma preparação de tela que não tem ligação direta com NFC. 
 
 **Problema:**
-Precisamos começar o "wizard" que fará o cadastro da tag NFC de uma forma amigável para pessoa usuária.
+Agora que nossa tela está diagramada, precisamos dar comportamento a ela!
 
 **Solução**
- Para isso vamos começar a construir nossa `NfcScreen`. Ela será uma tela preparada para acolher a pessoa usuária explicando as vantagens dessa etapa, e na sequência verificar se o dispositivo é compatível com NFC e cadastrar o cartão.
+Para isso vamos criar um enum que vai definir o estado da tela, e baseado nele, vamos dar comportamento para os botões e mostrar algo na tela.
 
 **Prática**
-- Scaffold
-- Padding
-- Stack
-- Cria estiliza os botões de baixo
-- Associa os botões a métodos
-- Adiciona coluna para imagens e texto
-- Adiciona imagem no projeto
-- Adiciona imagem na tela
-- Adiciona e estiliza os textos
+- Criar `enum NfcSubScreens`;
+- Modularizar a tela subtela de welcome pra um `stl`;
+- Criar `_buildCurrentScreen()` baseado em `NfcSubScreens`;
+- Chamar `_buildCurrentScreen()` no lugar da tela de welcome;
+- Dar comportamento para os botões baseado em `NfcSubScreens`;
+
+**Gancho**
+O gancho aqui é que vamos precisar saber se o dispositivo aceita ou não NFC para mandar para subtela de `readCard` ou `notValid`, e para isso precisaremos do pacote;
