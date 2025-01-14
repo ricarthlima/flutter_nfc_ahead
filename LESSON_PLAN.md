@@ -1,21 +1,21 @@
-Aula 01 - Vídeo 01 - Parte 09
+Aula 01 - Vídeo 01 - Parte 11
 
 **Problema**
-Agora que somos capazes de ter em mãos o identificador único de nossa tag NFC. Chegou a hora de salvarmos essa informação localmente para podermos usar na autenticação depois.
+Agora que somos capazes de salvar a tag localmente, só falta salvar!
 
 **Solução**
-Para isso vamos lá no no nosso LocalDataManager para criar dois métodos, um de salvamento e outro de obtenção.
+Para isso vamos fazer a chamada de `saveNfcTagId` dentro do nosso `startSession` e, logo na sequência, transferir a pessoa usuária para tela de finalização e liberar o botão de continuar.
 
 **Prática**
-Sem segredo aqui:
+Sem segredo aqui também:
 ```dart
-  Future<void> saveNfcTagId(String id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(PrefsKeys.tagID, id);
-  }
-
-  Future<String> readNfcTagId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(PrefsKeys.tagID) ?? "";
-  }
+  return NfcManager.instance.startSession(
+      onDiscovered: (tag) async {
+        LocalDataManager()
+            .saveNfcTagId(tag.data["nfca"]["identifier"].toString());
+        _currentSubScreen = _NfcSubScreens.finished;
+        isReadingNfc = false;
+        setState(() {});
+      },
+    );
 ```

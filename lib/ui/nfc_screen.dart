@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_banco_douro/data/local_data_manager.dart';
 import 'package:flutter_banco_douro/ui/styles/colors.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
@@ -133,7 +132,11 @@ class _NfcScreenState extends State<NfcScreen> {
     _currentSubScreen = _NfcSubScreens.readCard;
     return NfcManager.instance.startSession(
       onDiscovered: (tag) async {
-        print(const JsonEncoder.withIndent(' ').convert(tag.data));
+        LocalDataManager()
+            .saveNfcTagId(tag.data["nfca"]["identifier"].toString());
+        _currentSubScreen = _NfcSubScreens.finished;
+        isReadingNfc = false;
+        setState(() {});
       },
     );
   }
