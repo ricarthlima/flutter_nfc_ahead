@@ -1,20 +1,19 @@
-Aula 01 - Vídeo 01 - Parte 05
-
-**Atenção!**
-Essa parte sofre do mesmo caso da anterior, uma preparação de tela que não tem ligação direta com NFC. 
+Aula 01 - Vídeo 01 - Parte 06
 
 **Problema:**
-Agora que nossa tela está diagramada, precisamos dar comportamento a ela!
+Precisamos saber se o dispositivo é compatível com NFC.
 
 **Solução**
-Para isso vamos criar um enum que vai definir o estado da tela, e baseado nele, vamos dar comportamento para os botões e mostrar algo na tela.
+Para isso já vamos usar o plugin `nfc_manager`, então vamos instalá-lo e configurá-lo.
 
 **Prática**
-- Criar `enum NfcSubScreens`;
-- Modularizar a tela subtela de welcome pra um `stl`;
-- Criar `_buildCurrentScreen()` baseado em `NfcSubScreens`;
-- Chamar `_buildCurrentScreen()` no lugar da tela de welcome;
-- Dar comportamento para os botões baseado em `NfcSubScreens`;
+- `flutter pub add nfc_manager`
+- Código e discussão sobre no Android Manifest
+```
+     <!-- Permissões necessárias -->
+    <uses-permission android:name="android.permission.NFC" />
 
-**Gancho**
-O gancho aqui é que vamos precisar saber se o dispositivo aceita ou não NFC para mandar para subtela de `readCard` ou `notValid`, e para isso precisaremos do pacote;
+    <!-- Declaração de recursos -->
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    
+```
