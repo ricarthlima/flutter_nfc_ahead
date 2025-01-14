@@ -1,12 +1,22 @@
-Aula 01 - Vídeo 01 - Parte 03
+Aula 01 - Vídeo 01 - Parte 04
+
+Atenção!
+Essa é uma parte longa e que em praticamente nada agrega para o entendimento de NFC.
+Talvez possamos cogitar chegar com esse código pronto.
 
 **Problema:**
-Agora precisamos de uma tela para fazer o cadastro da autenticação via NFC.
+Precisamos começar o "wizard" que fará o cadastro da tag NFC de uma forma amigável para pessoa usuária.
 
 **Solução**
-Para isso, o primeiro passo é criar uma nova tela e chama-la depois de `LoginScreen` caso aquele dado `isFirstTime` seja verdadeiro.
+ Para isso vamos começar a construir nossa `NfcScreen`. Ela será uma tela preparada para acolher a pessoa usuária explicando as vantagens dessa etapa, e na sequência verificar se o dispositivo é compatível com NFC e cadastrar o cartão.
 
 **Prática**
-- Criar `ui/nfc_screen.dart` com um `stf`
-- Configurar rota do `nfc` em `main`
-- Fazer com que `LoginScreen` mande para `HomeScreen` ou `NfcScreen` a depender do resultado da consulta de `LOcalDataManager.isFirstTime()`
+- Scaffold
+- Padding
+- Stack
+- Cria estiliza os botões de baixo
+- Associa os botões a métodos
+- Adiciona coluna para imagens e texto
+- Adiciona imagem no projeto
+- Adiciona imagem na tela
+- Adiciona e estiliza os textos
