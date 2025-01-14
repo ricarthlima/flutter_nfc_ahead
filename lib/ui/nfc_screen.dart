@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_banco_douro/ui/styles/colors.dart';
 import 'package:nfc_manager/nfc_manager.dart';
@@ -75,6 +77,7 @@ class _NfcScreenState extends State<NfcScreen> {
       case _NfcSubScreens.finished:
         _currentSubScreen = _NfcSubScreens.welcome;
         isReadingNfc = false;
+        stopReading();
         break;
     }
 
@@ -87,8 +90,7 @@ class _NfcScreenState extends State<NfcScreen> {
         verifyNfcAvailability().then(
           (isAvailable) {
             if (isAvailable) {
-              isReadingNfc = true;
-              _currentSubScreen = _NfcSubScreens.readCard;
+              startReading();
             } else {
               _currentSubScreen = _NfcSubScreens.notValid;
             }
@@ -101,6 +103,7 @@ class _NfcScreenState extends State<NfcScreen> {
         _currentSubScreen = _NfcSubScreens.finished;
         break;
       case _NfcSubScreens.finished:
+        stopReading();
         Navigator.pushReplacementNamed(context, "home");
         break;
     }
@@ -123,6 +126,20 @@ class _NfcScreenState extends State<NfcScreen> {
 
   Future<bool> verifyNfcAvailability() async {
     return NfcManager.instance.isAvailable();
+  }
+
+  Future<void> startReading() {
+    isReadingNfc = true;
+    _currentSubScreen = _NfcSubScreens.readCard;
+    return NfcManager.instance.startSession(
+      onDiscovered: (tag) async {
+        print(const JsonEncoder.withIndent(' ').convert(tag.data));
+      },
+    );
+  }
+
+  Future<void> stopReading() {
+    return NfcManager.instance.stopSession();
   }
 }
 
@@ -180,14 +197,9 @@ class _NfcNotValidScreen extends StatelessWidget {
   }
 }
 
-class _NfcReadScreen extends StatefulWidget {
+class _NfcReadScreen extends StatelessWidget {
   const _NfcReadScreen();
 
-  @override
-  State<_NfcReadScreen> createState() => _NfcReadScreenState();
-}
-
-class _NfcReadScreenState extends State<_NfcReadScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
