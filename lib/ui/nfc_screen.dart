@@ -50,9 +50,12 @@ class _NfcScreenState extends State<NfcScreen> {
                           ? const WidgetStatePropertyAll(Colors.grey)
                           : const WidgetStatePropertyAll(AppColor.orange),
                     ),
-                    child: const Text(
-                      "Continuar",
-                      style: TextStyle(
+                    child: Text(
+                      (_currentSubScreen == _NfcSubScreens.finished ||
+                              _currentSubScreen == _NfcSubScreens.notValid)
+                          ? "Finalizar"
+                          : "Continuar",
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                     ),
@@ -228,7 +231,23 @@ class _NfcFinishScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Finalizar"),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 16,
+        children: [
+          Icon(
+            Icons.check,
+            color: AppColor.orange,
+            size: 128,
+          ),
+          Text(
+            "Seu douradinho foi registrado! :D",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24),
+          )
+        ],
+      ),
     );
   }
 }

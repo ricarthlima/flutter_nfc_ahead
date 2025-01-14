@@ -1,21 +1,40 @@
-Aula 01 - Vídeo 01 - Parte 11
+Aula 01 - Vídeo 01 - Parte 12
+
+**Atenção**
+Aquelas telas que não precisam ser feitas em vídeo.
 
 **Problema**
-Agora que somos capazes de salvar a tag localmente, só falta salvar!
+Cadastro tá pronto! 
+Só falta dar um tapa nessa tela de finalização né?
 
 **Solução**
-Para isso vamos fazer a chamada de `saveNfcTagId` dentro do nosso `startSession` e, logo na sequência, transferir a pessoa usuária para tela de finalização e liberar o botão de continuar.
+Para isso vamos apenas adicionar um ícone de check e um texto amigável. É uma boa oportunidade também para mudar a label do botão de continuar caso estejamos na subtela de finalizar ou de não válido.
 
 **Prática**
-Sem segredo aqui também:
+- Segue sem segredo:
 ```dart
-  return NfcManager.instance.startSession(
-      onDiscovered: (tag) async {
-        LocalDataManager()
-            .saveNfcTagId(tag.data["nfca"]["identifier"].toString());
-        _currentSubScreen = _NfcSubScreens.finished;
-        isReadingNfc = false;
-        setState(() {});
-      },
-    );
+Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 16,
+        children: [
+          Icon(
+            Icons.check,
+            color: AppColor.orange,
+            size: 128,
+          ),
+          Text(
+            "Seu douradinho foi registrado! :D",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24),
+          )
+        ],
+      ),
+```
+- E no botão:
+```dart
+(_currentSubScreen == _NfcSubScreens.finished ||
+                              _currentSubScreen == _NfcSubScreens.notValid)
+                          ? "Finalizar"
+                          : "Continuar",
 ```
