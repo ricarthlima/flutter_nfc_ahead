@@ -10,4 +10,14 @@ class LocalDataManager {
     }
     return result;
   }
+
+  Future<void> saveNfcTagId(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(PrefsKeys.tagID, id);
+  }
+
+  Future<String> readNfcTagId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(PrefsKeys.tagID) ?? "";
+  }
 }

@@ -1,11 +1,21 @@
 Aula 01 - Vídeo 01 - Parte 09
 
 **Problema**
-Chegou finalmente a esperada hora e ler um cartão e analisar os resultados;
+Agora que somos capazes de ter em mãos o identificador único de nossa tag NFC. Chegou a hora de salvarmos essa informação localmente para podermos usar na autenticação depois.
+
+**Solução**
+Para isso vamos lá no no nosso LocalDataManager para criar dois métodos, um de salvamento e outro de obtenção.
 
 **Prática**
-- Criar método `startReading` com que faz o `startSession` apenas printando o `data`;
-- Criar método `stopReading` que chama o `stopSession`;
-- Chamar `startReading` ao ir para tela `readCard`, boa oportunidade para trazer os outros comportamentos para dentro do método;
-- Chamar `stopReading` em qualquer `back` e indo pro `finish`
-- Testar e discutir o print;
+Sem segredo aqui:
+```dart
+  Future<void> saveNfcTagId(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(PrefsKeys.tagID, id);
+  }
+
+  Future<String> readNfcTagId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(PrefsKeys.tagID) ?? "";
+  }
+```
