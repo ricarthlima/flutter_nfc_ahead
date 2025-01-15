@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_banco_douro/data/local_data_manager.dart';
 import 'package:flutter_banco_douro/ui/nfc_screen.dart';
 import 'package:flutter_banco_douro/ui/styles/colors.dart';
+import 'package:nfc_manager/nfc_manager.dart';
 
 class NfcReadScreen extends StatefulWidget {
   const NfcReadScreen({super.key});
@@ -72,5 +74,43 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
     setState(() {
       isStartedRead = true;
     });
+    NfcManager.instance.startSession(
+      onDiscovered: (tag) async {
+        await NfcManager.instance.stopSession();
+
+        String tagId = await LocalDataManager().readNfcTagId();
+        if (tag.data["nfca"]["identifier"].toString() == tagId) {
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, "home");
+        } else {
+          showWrongCardDialog();
+        }
+      },
+    );
+  }
+
+  void showWrongCardDialog() {
+    setState(() {
+      isStartedRead = false;
+    });
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Atenção"),
+          content: const Text(
+              "O cartão aproximado não é o cadastrado, tente novamente."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("OK"),
+            )
+          ],
+        );
+      },
+    );
   }
 }

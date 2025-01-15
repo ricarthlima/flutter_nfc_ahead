@@ -1,15 +1,13 @@
-Aula 01 - Vídeo 01 - Parte 14
-
-**Atenção**
-Essa pode se encaixar naquele esquema das telas prontas também.
+Aula 01 - Vídeo 01 - Parte 15
 
 **Problema**
-Só que cadastrar não é o suficiente né? É preciso também verificar, na hora de fazer o login, qual foi o ID cadastrado!
+Agora que a tela está praticamente pronta, falta só fazer a lógica de leitura e comparação.
 
 **Solução**
-Para isso vamos começar criando uma tela que será usada depois da tela de login caso `isFirstTime` seja falso, e se existir alguma `tagId`;
+Para isso, vamos usar o `NfcManager` para iniciar a leitura, e o `LocalDataManager` para recuperar o id salvo.
 
 **Prática**
-- Criar `stf` com uma estrutura para `NfcReadScreen`;
-- Adicionar `NfcReadScreen` em uma nova rota em `main`;
-- Na `LoginScreen` rotear para ir para nova tela caso `nfcTagId` seja diferente de nulo.
+- Começar a ler ao clicar em iniciar;
+- Parar de ler assim que detectar uma leitura;
+- Se a tag bater com a gravada, mandar para `HomeScreen`;
+- Se não bater, mostrar um dialog e voltar para o inicio da detecção;
