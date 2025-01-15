@@ -122,7 +122,7 @@ class _NfcScreenState extends State<NfcScreen> {
       case _NfcSubScreens.notValid:
         return const _NfcNotValidScreen();
       case _NfcSubScreens.readCard:
-        return const _NfcReadScreen();
+        return const NfcReadSubScreen();
       case _NfcSubScreens.finished:
         return const _NfcFinishScreen();
     }
@@ -209,8 +209,8 @@ class _NfcNotValidScreen extends StatelessWidget {
   }
 }
 
-class _NfcReadScreen extends StatelessWidget {
-  const _NfcReadScreen();
+class NfcReadSubScreen extends StatelessWidget {
+  const NfcReadSubScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

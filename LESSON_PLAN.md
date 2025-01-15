@@ -1,13 +1,15 @@
-Aula 01 - Vídeo 01 - Parte 13
+Aula 01 - Vídeo 01 - Parte 14
+
+**Atenção**
+Essa pode se encaixar naquele esquema das telas prontas também.
 
 **Problema**
-Faltou um detalhezinho na nossa lógica né?  Se a pessoa já cadastrou o cartão (ou se o dispositivo não tem NFC disponível), não podemos mais ir para essa tela de configuração depois da de login né?
-
+Só que cadastrar não é o suficiente né? É preciso também verificar, na hora de fazer o login, qual foi o ID cadastrado!
 
 **Solução**
-Para resolver esse problema vamos preparar nosso código para salvar a informação com o `shared_preferences` e aplicar essa lógica de salvamento tanto na tela `finish` quanto na `notValid`;
+Para isso vamos começar criando uma tela que será usada depois da tela de login caso `isFirstTime` seja falso, e se existir alguma `tagId`;
 
 **Prática**
-- Método `saveFirstTime` em `LocalDataManager`;
-- Método `saveNotFirstTimeAnymore` em `NfcScreen`;
-- Usar método no `buttonNext` da tela `finish` e na tela `notValid`;
+- Criar `stf` com uma estrutura para `NfcReadScreen`;
+- Adicionar `NfcReadScreen` em uma nova rota em `main`;
+- Na `LoginScreen` rotear para ir para nova tela caso `nfcTagId` seja diferente de nulo.

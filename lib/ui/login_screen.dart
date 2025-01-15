@@ -82,7 +82,15 @@ class LoginScreen extends StatelessWidget {
     if (isFirstTime) {
       Navigator.pushReplacementNamed(context, "nfc");
     } else {
-      Navigator.pushReplacementNamed(context, "home");
+      bool hasTagId = await LocalDataManager().readNfcTagId() != "";
+
+      if (!context.mounted) return;
+
+      if (hasTagId) {
+        Navigator.pushNamed(context, "nfc_read");
+      } else {
+        Navigator.pushReplacementNamed(context, "home");
+      }
     }
   }
 }
