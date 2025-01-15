@@ -24,7 +24,9 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  _resetDataAndBack();
+                },
                 child: const Text("Perdi meu cartão ou estou tendo problemas."),
               ),
             ),
@@ -112,5 +114,12 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
         );
       },
     );
+  }
+
+  void _resetDataAndBack() async {
+    await LocalDataManager().saveFirstTime(isFirstTime: true);
+    await NfcManager.instance.stopSession();
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, "login");
   }
 }

@@ -1,13 +1,13 @@
-Aula 01 - Vídeo 01 - Parte 15
+Aula 01 - Vídeo 01 - Parte 16
 
 **Problema**
-Agora que a tela está praticamente pronta, falta só fazer a lógica de leitura e comparação.
+Mas o que acontece se eu perder o cartão, ou o sensor de NFC do meu dispositivo der defeito?
 
 **Solução**
-Para isso, vamos usar o `NfcManager` para iniciar a leitura, e o `LocalDataManager` para recuperar o id salvo.
+É pensando nisso que esse botão de ajuda tá logo abaixo. Vamos fazer com que ele limpe as informações para a pessoa voltar para aquela situação de cadastrar um novo cartão lá no começo.
 
 **Prática**
-- Começar a ler ao clicar em iniciar;
-- Parar de ler assim que detectar uma leitura;
-- Se a tag bater com a gravada, mandar para `HomeScreen`;
-- Se não bater, mostrar um dialog e voltar para o inicio da detecção;
+- Criar método `_resetDataAndBack` que limpa o `isFirstTime`, para a leitura caso ela esteja ativa, e volta para `LoginScreen`;
+- Atribuir método ao botão de "Estou tendo problemas".
+
+(OBS.: Em todo o discurso desse curso é importante dizer que o projeto é didático, a gente não estaria pensando na segurança de um banco real)
