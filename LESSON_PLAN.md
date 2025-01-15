@@ -1,40 +1,13 @@
-Aula 01 - Vídeo 01 - Parte 12
-
-**Atenção**
-Aquelas telas que não precisam ser feitas em vídeo.
+Aula 01 - Vídeo 01 - Parte 13
 
 **Problema**
-Cadastro tá pronto! 
-Só falta dar um tapa nessa tela de finalização né?
+Faltou um detalhezinho na nossa lógica né?  Se a pessoa já cadastrou o cartão (ou se o dispositivo não tem NFC disponível), não podemos mais ir para essa tela de configuração depois da de login né?
+
 
 **Solução**
-Para isso vamos apenas adicionar um ícone de check e um texto amigável. É uma boa oportunidade também para mudar a label do botão de continuar caso estejamos na subtela de finalizar ou de não válido.
+Para resolver esse problema vamos preparar nosso código para salvar a informação com o `shared_preferences` e aplicar essa lógica de salvamento tanto na tela `finish` quanto na `notValid`;
 
 **Prática**
-- Segue sem segredo:
-```dart
-Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 16,
-        children: [
-          Icon(
-            Icons.check,
-            color: AppColor.orange,
-            size: 128,
-          ),
-          Text(
-            "Seu douradinho foi registrado! :D",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24),
-          )
-        ],
-      ),
-```
-- E no botão:
-```dart
-(_currentSubScreen == _NfcSubScreens.finished ||
-                              _currentSubScreen == _NfcSubScreens.notValid)
-                          ? "Finalizar"
-                          : "Continuar",
-```
+- Método `saveFirstTime` em `LocalDataManager`;
+- Método `saveNotFirstTimeAnymore` em `NfcScreen`;
+- Usar método no `buttonNext` da tela `finish` e na tela `notValid`;

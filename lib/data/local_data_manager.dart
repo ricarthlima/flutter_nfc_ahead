@@ -11,6 +11,11 @@ class LocalDataManager {
     return result;
   }
 
+  Future<void> saveFirstTime({bool isFirstTime = false}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(PrefsKeys.isFirstTime, isFirstTime);
+  }
+
   Future<void> saveNfcTagId(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(PrefsKeys.tagID, id);

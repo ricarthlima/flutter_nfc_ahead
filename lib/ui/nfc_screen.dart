@@ -99,6 +99,7 @@ class _NfcScreenState extends State<NfcScreen> {
           },
         );
       case _NfcSubScreens.notValid:
+        saveNotFirstTimeAnymore();
         Navigator.pushReplacementNamed(context, "home");
         break;
       case _NfcSubScreens.readCard:
@@ -106,6 +107,7 @@ class _NfcScreenState extends State<NfcScreen> {
         break;
       case _NfcSubScreens.finished:
         stopReading();
+        saveNotFirstTimeAnymore();
         Navigator.pushReplacementNamed(context, "home");
         break;
     }
@@ -146,6 +148,10 @@ class _NfcScreenState extends State<NfcScreen> {
 
   Future<void> stopReading() {
     return NfcManager.instance.stopSession();
+  }
+
+  Future<void> saveNotFirstTimeAnymore() async {
+    return LocalDataManager().saveFirstTime();
   }
 }
 
